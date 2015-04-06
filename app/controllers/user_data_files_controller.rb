@@ -11,7 +11,7 @@ class UserDataFilesController < ApplicationController
   # GET /user_data_files/1.json
   def show
   end
-  
+
   # GET /user_data_files/new
   def new
     @user_data_file = UserDataFile.new
@@ -24,26 +24,21 @@ class UserDataFilesController < ApplicationController
   # POST /user_data_files
   # POST /user_data_files.json
   def create
-
     @user_data_file ||= UserDataFile.new
     @user_data_file.avatar = params[:file]
-
     @user_data_file.uploaded_file = params[:file]
-    @user_data_file.save!
-    @user_data_file.zipfile = params[:file]
-   
 
     if @user_data_file.save
+      @user_data_file.zipfile = params[:file]
         flash[:notice] = "Thank you for your submission..."
         redirect_to :action => "new"
     else
-        flash[:error] = "There was a problem submitting your attachment."
+        flash[:error] = "Your file is duplicated!"
         render :action => "new"
     end
+
   end
   
-
-
   def download
     send_file "public/uploads/user_data_file/AllData.zip", :type => 'application/zip', :disposition => 'attachment'
     # send_data(@user_data_file, filename: @user_data_file.filename)

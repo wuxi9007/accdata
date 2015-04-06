@@ -6,6 +6,7 @@ require 'zip/zipfilesystem'
 
 class UserDataFile < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
+  validates :filename, uniqueness: {message: "duplicate file!"}
 
   def uploaded_file=(incoming_file)
     CSV.foreach(incoming_file.path, headers: true) do |row|
