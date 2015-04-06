@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post 'create' => 'user_data_files#create'
   
   get 'index' => 'user_data_files#index'
-  get 'contact' => 'user_data_files#contact'
+  get 'contact' => 'static_pages#contact'
   
   resources :user_data_files do 
     member do
