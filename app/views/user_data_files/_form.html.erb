@@ -1,0 +1,20 @@
+<%= form_for(@user_data_file) do |f| %>
+  <% if @user_data_file.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_data_file.errors.count, "error") %> prohibited this user_data_file from being saved:</h2>
+
+      <ul>
+      <% @user_data_file.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.file_field :user_data_file %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Import", class: 'btn btn-small btn-primary' %>
+  </div>
+<% end %>

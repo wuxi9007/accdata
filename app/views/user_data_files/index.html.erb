@@ -1,0 +1,27 @@
+<h1>Listing user_data_files</h1>
+
+<%= link_to "DOWNLOAD ALL DATA", "/AllData.zip", class: "btn btn-primary", style: "color:white" %>
+<table class='table'>
+
+  <thead>
+    <tr>
+      <th><h3>Filename</h3></th>
+      <th><h3>Download</h3></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_data_files.each do |user_data_file| %>
+      <tr>
+        <td><%= user_data_file.filename %></td>
+        <td><%= link_to 'Download', user_data_file.avatar.url, class: "btn btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<br>
+
