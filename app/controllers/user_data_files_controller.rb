@@ -1,7 +1,6 @@
 class UserDataFilesController < ApplicationController
   before_action :set_user_data_file, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
-  
+
   # GET /user_data_files
   # GET /user_data_files.json
   def index
@@ -25,21 +24,40 @@ class UserDataFilesController < ApplicationController
   # POST /user_data_files
   # POST /user_data_files.json
   def create
-    @user_data_file ||= UserDataFile.new
-    @user_data_file.avatar = params[:file]
-    @user_data_file.uploaded_file = params[:file]
+      @user_data_file ||= UserDataFile.new
+      @user_data_file.avatar = params[:file]
+      value_array = []
+      value_array  = params[:file].split("\\n")
+      array_element = []
+      array_element = value_array[1].split(",")
+      
+      android_id = array_element[0]
+      @user_data_file.notes = array_element[5]
+      time_stamp = array_element[1][0...-3]
 
-    if @user_data_file.save
-      @user_data_file.zipfile = params[:file]
-        flash[:notice] = "Thank you for your submission..."
-        redirect_to :action => "new"
-    else
-        flash[:error] = "Your file is duplicated!"
-        render :action => "new"
-    end
+      time = Time.at(time_stamp.to_i).utc
+      filename = ("#{android_id}".to_s + "__AT__" + "#{time}".to_s).gsub(/\W/,'_') + ".csv" 
+      @user_data_file.filename = filename
+      column_names = value_array[0]
+      File.open("public/uploads/user_data_file/avatar/#{filename}", 'w') do |csv|
+        value_array.each do |x|
+        csv << x + "\n"
+        end
+      end
 
+      if @user_data_file.save
+          @user_data_file.zipfile = params[:file]
+          flash[:notice] = "Thank you for your submission..."
+          redirect_to :action => "new"
+      else
+          flash[:error] = "The file you upload already existes."
+          redirect_to :action => "new"
+      end
   end
   
+  def contact
+  end
+
   def download
     send_file "public/uploads/user_data_file/AllData.zip", :type => 'application/zip', :disposition => 'attachment'
     # send_data(@user_data_file, filename: @user_data_file.filename)

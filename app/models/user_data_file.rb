@@ -6,21 +6,24 @@ require 'zip/zipfilesystem'
 
 class UserDataFile < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
-  validates :filename, uniqueness: {message: "duplicate file!"}
-
-  def uploaded_file=(incoming_file)
-    CSV.foreach(incoming_file.path, headers: true) do |row|
-      android_id = row[1]
-      time = row[2][0...-3]
-      time = Time.at(time.to_i).utc
-      self.filename = "#{android_id}".to_s + "__AT__" + "#{time}".to_s
-    end
-  end
+  validates :filename, uniqueness: {message: "Duplicated File!"}
 
   def zipfile=(incoming_file)
+    value_array = []
+    value_array  = incoming_file.split("\\n")
+   
+
+    array_element = []
+    array_element = value_array[1].split(",")
+    
+    android_id = array_element[0]
+    time_stamp = array_element[1][0...-3]
+
+    time = Time.at(time_stamp.to_i).utc
+    filename = ("#{android_id}".to_s + "__AT__" + "#{time}".to_s).gsub(/\W/,'_') + ".csv"
     folder = "public/uploads/user_data_file/avatar"
     input_filenames ||= []
-    input_filenames << incoming_file.original_filename
+    input_filenames << filename
     zipfile_name = "public/AllData.zip"
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
         input_filenames.each do |filename|
@@ -31,11 +34,6 @@ class UserDataFile < ActiveRecord::Base
         end
       zipfile.get_output_stream("ignore") { |os| os.write "myFile contains just this" }
     end
-  end
-
-
-  def filename=(new_filename)
-    write_attribute("filename", sanitize_filename(new_filename))
   end
 
   private

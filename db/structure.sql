@@ -41,8 +41,9 @@ CREATE TABLE `user_data_files` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `notes` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,7 +55,7 @@ CREATE TABLE `user_data_files` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-06 15:01:38
+-- Dump completed on 2015-04-08 15:54:45
 INSERT INTO schema_migrations (version) VALUES ('20150330221806');
 
 INSERT INTO schema_migrations (version) VALUES ('20150331000356');
@@ -64,3 +65,5 @@ INSERT INTO schema_migrations (version) VALUES ('20150331015630');
 INSERT INTO schema_migrations (version) VALUES ('20150331164939');
 
 INSERT INTO schema_migrations (version) VALUES ('20150401181822');
+
+INSERT INTO schema_migrations (version) VALUES ('20150408195427');
