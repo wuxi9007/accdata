@@ -28,7 +28,7 @@ class UserDataFilesController < ApplicationController
       @user_data_file ||= UserDataFile.new
       @user_data_file.avatar = params[:file]
       value_array = []
-      value_array  = params[:file].split("\n")
+      value_array  = params[:file].split("\\n")
       array_element = []
       array_element = value_array[1].split(",")
       
@@ -40,7 +40,7 @@ class UserDataFilesController < ApplicationController
       filename = ("#{android_id}".to_s + "__AT__" + "#{time}".to_s).gsub(/\W/,'_') + ".csv" 
       @user_data_file.filename = filename
       column_names = value_array[0]
-      File.open("public/uploads/user_data_file/avatar/#{filename}", 'w') do |csv|
+      File.open("public/#{filename}", 'w') do |csv|
         value_array.each do |x|
         csv << x + "\n"
         end

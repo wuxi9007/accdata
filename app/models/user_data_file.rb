@@ -21,7 +21,7 @@ class UserDataFile < ActiveRecord::Base
 
     time = Time.at(time_stamp.to_i).utc
     filename = ("#{android_id}".to_s + "__AT__" + "#{time}".to_s).gsub(/\W/,'_') + ".csv"
-    folder = "public/uploads/user_data_file/avatar"
+    folder = "public/"
     input_filenames ||= []
     input_filenames << filename
     zipfile_name = "public/AllData.zip"

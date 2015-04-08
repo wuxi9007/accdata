@@ -20,7 +20,7 @@
           <td><%= user_data_file.id %></td>
           <td><%= user_data_file.filename %></td>
           <td><%= user_data_file.notes %></td>
-          <td><%= link_to 'Download', "/uploads/user_data_file/avatar/#{user_data_file.filename}", class: "btn btn-primary", style: "color:white" %></td>
+          <td><%= link_to 'Download', "/#{user_data_file.filename}", class: "btn btn-primary", style: "color:white" %></td>
         </tr>
       <% end %>
     </tbody>
