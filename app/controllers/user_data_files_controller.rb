@@ -28,7 +28,7 @@ class UserDataFilesController < ApplicationController
       @user_data_file ||= UserDataFile.new
       @user_data_file.avatar = params[:file]
       value_array = []
-      value_array  = params[:file].split("\n")
+      value_array  = params[:file].split("\n")[1..-1]
       array_element = []
       array_element = value_array[1].split(",")
       
@@ -39,10 +39,17 @@ class UserDataFilesController < ApplicationController
       time = Time.at(time_stamp.to_i).utc
       filename = ("#{android_id}".to_s + "__AT__" + "#{time}".to_s).gsub(/\W/,'_') + ".csv" 
       @user_data_file.filename = filename
-      column_names = value_array[0]
+      colunm_name = params[:file].split("\n")[0]
+      colunm_name << ",actual_time\n"
+      puts colunm_name
       File.open("public/#{filename}", 'w') do |csv|
+        csv << colunm_name
         value_array.each do |x|
-        csv << x + "\n"
+          row = x.split(",")
+          time_stamp = row[1][0...-3]
+          time = (Time.at(time_stamp.to_i).utc).to_s + " ms: #{row[1][-3..-1]}"
+          csv << x 
+          csv << "," + time.to_s + "\n"
         end
       end
 
