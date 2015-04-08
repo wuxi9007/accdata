@@ -1,7 +1,7 @@
 <% if @user_data_files.present? %>
 
   <h1>Listing user data files</h1>
-  <%= link_to "DOWNLOAD ALL DATA", "/AllData.zip", class: "btn btn-primary", style: "color:white" %>
+  <%= link_to "DOWNLOAD ALL DATA", "AllData.zip", class: "btn btn-primary", style: "color:white" %>
   <table class='table'>
 
     <thead>
@@ -20,7 +20,7 @@
           <td><%= user_data_file.id %></td>
           <td><%= user_data_file.filename %></td>
           <td><%= user_data_file.notes %></td>
-          <td><%= link_to 'Download', "/#{user_data_file.filename}", class: "btn btn-primary", style: "color:white" %></td>
+          <td><%= link_to 'Download', "#{user_data_file.filename}", class: "btn btn-primary", style: "color:white" %></td>
         </tr>
       <% end %>
     </tbody>
