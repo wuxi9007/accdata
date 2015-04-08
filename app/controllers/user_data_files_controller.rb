@@ -28,7 +28,7 @@ class UserDataFilesController < ApplicationController
       @user_data_file ||= UserDataFile.new
       @user_data_file.avatar = params[:file]
       value_array = []
-      value_array  = params[:file].split("\\n")
+      value_array  = params[:file].split("\n")
       array_element = []
       array_element = value_array[1].split(",")
       
