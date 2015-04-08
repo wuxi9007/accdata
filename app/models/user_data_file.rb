@@ -10,7 +10,7 @@ class UserDataFile < ActiveRecord::Base
 
   def zipfile=(incoming_file)
     value_array = []
-    value_array  = incoming_file.split("\\n")
+    value_array  = incoming_file.split("\n")
    
 
     array_element = []
