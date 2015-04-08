@@ -1,5 +1,6 @@
 class UserDataFilesController < ApplicationController
   before_action :set_user_data_file, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /user_data_files
   # GET /user_data_files.json
