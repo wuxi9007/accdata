@@ -219,9 +219,12 @@ input {
 
 .hidden {
   display: none;
+  text-align: center;
 }
 
-.kickout {
+div .kickout {
+  position: relative;
   display: block;
   width: 50%;
+  margin-top: 100px;
 }
